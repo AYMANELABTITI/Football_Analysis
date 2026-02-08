@@ -1,0 +1,120 @@
+# Configuration Professionnelle - FIFA-Style
+# Paramètres optimisés pour sortie propre et précise
+
+gpu:
+  enabled: true
+  device: "cuda:0"
+  mixed_precision: true
+
+# Détection ultra-précise
+detection:
+  model: "yolov8x.pt"      # Maximum précision
+  pose_model: "yolov8x-pose.pt"  # Skeleton tracking
+  confidence: 0.35         # Base threshold pour récupérer plus de joueurs
+  player_confidence: 0.30  # Seuil personne
+  ball_confidence: 0.40    # Légèrement plus tolérant pour éviter les pertes de ballon
+  pose_confidence: 0.30
+  iou_threshold: 0.45
+  img_size: 1536           # Plus précis (plus lent)
+  
+  # Filtres de qualité
+  min_player_area: 450
+  max_player_area: 60000
+  min_aspect_ratio: 0.95
+  max_aspect_ratio: 5.5
+  field_y_min: 0.05
+  field_y_max: 0.95
+  ball_field_y_min: 0.15
+  ball_field_y_max: 0.90
+  min_ball_area: 30
+  max_ball_area: 3600
+  ball_aspect_ratio_min: 0.50
+  ball_aspect_ratio_max: 1.85
+  ball_hold_frames: 6
+  ball_link_distance_px: 120
+  min_visible_keypoints: 4
+  player_nms_iou: 0.60
+  pose_player_iou: 0.55
+  max_referee_ratio: 0.25
+  team_prototype_alpha: 0.20
+
+  jersey:
+    saturation_min: 35
+    value_min: 35
+    value_max: 245
+    exclude_grass_h_min: 30
+    exclude_grass_h_max: 95
+
+# Tracking ultra-stable
+tracking:
+  max_age: 20              # Court pour éviter fantômes
+  min_hits: 5              # Très strict
+  iou_threshold: 0.40      # Précis
+  
+# Terrain
+field:
+  length: 105
+  width: 68
+  distance_scale_px_to_m: 0.0  # 0 = approximation auto (105 / video_width)
+  calibration_p1: null         # Ex: [120, 540]
+  calibration_p2: null         # Ex: [1810, 540]
+  calibration_distance_m: 68.0 # Ligne mediane (largeur terrain)
+  penalty_area_length: 16.5
+  penalty_area_width: 40.3
+
+# Events
+events:
+  offside_threshold: 2.0
+  ball_possession_distance: 1.5
+  high_speed_threshold: 20
+  sprint_threshold: 25
+  ball_control_distance_px: 80
+  pass_min_distance_px: 80
+  pass_min_duration_frames: 2
+  pass_max_duration_frames: 90
+  pass_min_separation_frames: 2
+  pass_max_angle_deg: 75
+  pass_min_ball_displacement_px: 18
+  pass_min_owner_frames: 2
+
+# Vidéo
+video:
+  fps: 30
+  output_fps: 30
+  resize_width: 1920
+  resize_height: 1080
+
+# Visualisation Professionnelle
+visualization:
+  show_skeleton: true
+  show_player_ids: true
+  show_confidence: true
+  show_minimap: true
+  show_heatmap: true
+  
+  # Style
+  skeleton_thickness: 2
+  bbox_thickness: 2
+  text_scale: 0.5
+  
+  # HUD
+  hud_enabled: true
+  hud_height: 80
+  
+# Output
+output:
+  codec: "mp4v"  # ou "avc1" pour H.264
+  quality: 100
+  save_heatmap: true
+  save_minimap: true
+  save_statistics: true
+
+# Couleurs (BGR)
+colors:
+  team_1: [50, 180, 255]    # Orange
+  team_2: [255, 180, 50]    # Cyan
+  referee: [200, 200, 200]  # Gris
+  ball: [0, 255, 255]       # Jaune
+  skeleton: [255, 255, 255] # Blanc
+  text: [255, 255, 255]     # Blanc
+  text_bg: [40, 40, 40]     # Noir

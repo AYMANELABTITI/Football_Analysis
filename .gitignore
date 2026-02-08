@@ -1,0 +1,49 @@
+# Python caches and build
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs / temp
+*.log
+*.tmp
+*.bak
+
+# Large ML artifacts
+*.pt
+*.onnx
+*.engine
+*.ckpt
+
+# Raw datasets / videos
+data/raw/*
+!data/raw/.gitkeep
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# Generated outputs
+results/*
+!results/.gitkeep
+results/reports/*
+!results/reports/.gitkeep
+
+# Optional local model directory
+models/*
+!models/.gitkeep
